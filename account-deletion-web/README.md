@@ -15,7 +15,7 @@ account-deletion-web/
 ├── Dockerfile       # Production container specification for Google Cloud Run
 ├── .dockerignore    # Docker build exclusion rules
 ├── .env.example     # Environment variable placeholder template
-├── index.html       # Public Account Deletion Portal for TubeMaster AI (Step 1 Request & Step 2 Verify)
+├── index.html       # Public Account Deletion Portal for TubeMaster AI (Option 1 & Option 2)
 ├── privacy.html     # Dedicated Privacy Policy page for TubeMaster AI
 ├── style.css        # Responsive dark creator theme stylesheet (WCAG AAA contrast, 48px touch targets)
 ├── script.js        # Dynamic configuration client & multi-step verification handler
@@ -31,7 +31,7 @@ The service uses the following environment variables (passable via Cloud Run or 
 | Variable | Placeholder / Default | Description |
 | :--- | :--- | :--- |
 | `PORT` | `8080` | Port assigned by Google Cloud Run |
-| `SUPPORT_EMAIL` | `hloob07@gmail.com` | Official support & privacy email address |
+| `SUPPORT_EMAIL` | `brixearn@gmail.com` | Official support & privacy email address |
 | `PRIVACY_POLICY_URL` | `/privacy` | URL for the Privacy Policy (internal `/privacy` or external link) |
 | `TOKEN_SECRET` | Auto-generated random | Secret used for HMAC-SHA256 verification code hashing |
 
@@ -68,7 +68,7 @@ Deploy the service entirely through your web browser using GitHub and Google Clo
 
 6. **Add Environment Variables (Optional):**
    - Under **Container, Volumes, Networking, Security** $\rightarrow$ **Variables & Secrets**:
-     - `SUPPORT_EMAIL` = `hloob07@gmail.com`
+     - `SUPPORT_EMAIL` = `brixearn@gmail.com`
      - `PRIVACY_POLICY_URL` = `/privacy`
 
 7. **Deploy:**
@@ -96,14 +96,13 @@ In the **Google Play Console** $\rightarrow$ **Policy and programs** $\rightarro
 
 ## 🛡️ Deletion Architecture & Lifecycle
 
-The deletion processing pipeline follows a 3-step verified lifecycle:
+The deletion processing pipeline follows a verified 2-option authentication lifecycle:
 
 ```text
-1. Stage 1: Deletion request received & validated (/api/account-deletion/request)
+Option 1: Gmail Verification Code (/api/auth/email/request → /api/auth/email/verify)
+Option 2: Direct Google Sign-In Identity (/api/auth/google)
         ↓
-2. Stage 2: Cryptographically verified ownership code (/api/account-deletion/verify)
+Verified Account Confirmation Screen & Consent Checkbox
         ↓
-3. Stage 3: Atomic deletion executed & completion receipt issued (DELETION_COMPLETED)
+Atomic Deletion Executed & Completion Receipt Issued (/api/account/delete)
 ```
-
-The system requires ownership verification before deletion, prevents unauthorized abuse via HMAC-SHA256 token hashing, single-use invalidation, and rate-limiting, and returns an honest `DELETION_COMPLETED` receipt only after full verification.

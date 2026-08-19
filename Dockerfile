@@ -14,7 +14,7 @@ COPY account-deletion-web ./account-deletion-web
 
 ENV NODE_ENV=production
 ENV PORT=8080
-ENV SUPPORT_EMAIL=hloob07@gmail.com
+ENV SUPPORT_EMAIL=brixearn@gmail.com
 ENV PRIVACY_POLICY_URL=/privacy
 
 EXPOSE 8080

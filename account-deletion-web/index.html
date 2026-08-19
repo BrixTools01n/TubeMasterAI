@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="User Data - Account Deletion. Remove your TubeMaster AI account and permanently purge associated account data.">
+  <meta name="description" content="User Data - Account Deletion. Official account management and data removal portal for registered TubeMaster AI creators.">
   <title>User Data - Account Deletion | TubeMaster AI</title>
   
   <!-- Fonts -->
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
-  <!-- Google Identity Services for Google Sign-In -->
+  <!-- Google Identity Services for Google Authentication -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
@@ -32,7 +32,7 @@
       </div>
       <nav class="header-nav">
         <a id="nav-privacy-link" href="/privacy" class="nav-link">Privacy Policy</a>
-        <a id="nav-support-link" href="mailto:hloob07@gmail.com" class="nav-link">Support</a>
+        <a id="nav-support-link" href="mailto:brixearn@gmail.com" class="nav-link">Support</a>
       </nav>
     </div>
   </header>
@@ -44,7 +44,7 @@
       <!-- Top Title Header -->
       <section class="hero-section">
         <div class="badge-tag">Google Play Compliance</div>
-        <h1 class="main-title">User Data - Account Deletion</h1>
+        <h1 class="main-title">User Data — Account Deletion</h1>
         <p class="subtitle">
           Official account management and data removal portal for registered <strong>TubeMaster AI</strong> creators.
         </p>
@@ -53,7 +53,7 @@
       <!-- Account Deletion Flow Card -->
       <section class="form-card" id="deletion-card">
         
-        <!-- STEP 1: Main Landing / Remove Your Account Initiation -->
+        <!-- STEP 1: Main Landing & 3-Option Chooser -->
         <div id="view-step-1" class="flow-view active">
           <div class="card-header">
             <div class="header-icon-wrap danger-icon">
@@ -64,138 +64,139 @@
               </svg>
             </div>
             <div>
-              <h2 class="card-title">Remove Your Account</h2>
-              <p class="card-desc">You can permanently remove your TubeMaster AI account and associated account data.</p>
+              <h2 class="card-title">Choose your account</h2>
+              <p class="card-desc">Select how you want to identify and verify your TubeMaster AI creator account for deletion.</p>
             </div>
           </div>
 
-          <div class="notice-info-box">
-            <div class="notice-item">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-              </svg>
-              <span>This portal allows you to identify and permanently delete your authenticated TubeMaster AI creator account without requiring the mobile application to be open.</span>
-            </div>
-          </div>
-
-          <div class="action-row">
-            <button type="button" id="btn-start-removal" class="btn-submit">
-              <span class="btn-text">Remove Your Account</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 2: Choose Your TubeMaster Account (Google Authentication) -->
-        <div id="view-step-2" class="flow-view" style="display: none;">
-          <div class="card-header">
-            <div class="header-icon-wrap">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <div>
-              <h2 class="card-title">Choose your TubeMaster account</h2>
-              <p class="card-desc">Sign in with the Google account you use with TubeMaster AI.</p>
-            </div>
-          </div>
-
-          <div class="auth-box">
-            <p class="auth-helper-text">
-              To safeguard your account and ensure only the verified owner can authorize deletion, please authenticate with your Google account.
-            </p>
-
-            <!-- Google Sign-In Button Container -->
-            <div id="g_id_signin_container" class="gsi-container">
-              <div id="g_id_onload"
-                   data-client_id="tubemaster-ai-google-auth.apps.googleusercontent.com"
-                   data-context="signin"
-                   data-ux_mode="popup"
-                   data-callback="handleGoogleSignInCallback"
-                   data-auto_prompt="false">
-              </div>
-              <div class="g_id_signin"
-                   data-type="standard"
-                   data-shape="rectangular"
-                   data-theme="filled_blue"
-                   data-text="signin_with"
-                   data-size="large"
-                   data-logo_alignment="left">
-              </div>
-            </div>
-
-            <!-- Direct Google Auth Button / Account Chooser Fallback -->
-            <div class="auth-fallback-box">
-              <button type="button" id="btn-google-auth-direct" class="google-auth-btn">
-                <svg class="google-svg" viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                </svg>
-                <span>Continue with Google Account</span>
-              </button>
-            </div>
-
-            <button type="button" id="btn-back-step-1" class="btn-secondary-link">
-              ← Back
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 3: Show Selected TubeMaster Account (Single-Account Authenticated Card) -->
-        <div id="view-step-3" class="flow-view" style="display: none;">
-          <div class="card-header">
-            <div class="header-icon-wrap success-icon">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <div>
-              <h2 class="card-title">Choose TubeMaster Account</h2>
-              <p class="card-desc">Authenticated account verified via Google Identity.</p>
-            </div>
-          </div>
-
-          <div class="account-profile-card">
-            <div class="account-avatar-wrap">
-              <img id="user-avatar-img" src="" alt="Google Profile" class="account-avatar" />
-              <div class="account-provider-badge">
-                <svg viewBox="0 0 24 24" width="12" height="12">
-                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                </svg>
-              </div>
-            </div>
+          <div class="auth-options-grid three-col">
             
-            <div class="account-details">
-              <div class="app-brand-mini">TubeMaster AI</div>
-              <h3 id="user-display-name" class="account-name">Creator</h3>
-              <div id="user-display-email" class="account-email">user@example.com</div>
-              <div class="account-status-pill">
-                <span class="status-dot"></span>
-                <span>Status: <strong>Signed in</strong></span>
+            <!-- OPTION 1: Auto Detect Account -->
+            <div class="auth-option-card" id="option-autodetect-card">
+              <div class="option-badge">Option 1</div>
+              <h3 class="option-title">Auto Detect Account</h3>
+              <p class="option-desc">Automatically identify the Google account currently available for your TubeMaster AI session.</p>
+              
+              <div class="auth-action-box">
+                <button type="button" id="btn-auto-detect" class="btn-autodetect">
+                  <svg class="radar-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 3v3m0 12v3M3 12h3m12 0h3"></path>
+                    <circle cx="12" cy="12" r="3" fill="currentColor" fill-opacity="0.3"></circle>
+                  </svg>
+                  <span class="btn-text">Auto Detect Account</span>
+                  <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+              </div>
+
+              <div class="security-bullet-point">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Instant browser identity detection</span>
               </div>
             </div>
-          </div>
 
-          <div class="action-row">
-            <button type="button" id="btn-continue-to-delete" class="btn-submit">
-              <span class="btn-text">Continue to Account Deletion</span>
-            </button>
-            <button type="button" id="btn-logout" class="btn-secondary-link">
-              Sign Out & Choose Different Account
-            </button>
+            <!-- DIVIDER 1 -->
+            <div class="auth-divider">
+              <span class="divider-line"></span>
+              <span class="divider-text">OR</span>
+              <span class="divider-line"></span>
+            </div>
+
+            <!-- OPTION 2: Continue with Google -->
+            <div class="auth-option-card" id="option-google-card">
+              <div class="option-badge">Option 2</div>
+              <h3 class="option-title">Continue with Google</h3>
+              <p class="option-desc">Securely authenticate using your Google account.</p>
+              
+              <div class="google-auth-wrapper">
+                <button type="button" id="btn-google-auth-direct" class="google-auth-btn">
+                  <svg class="google-svg" viewBox="0 0 24 24" width="20" height="20">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                  </svg>
+                  <span>Continue with Google</span>
+                </button>
+              </div>
+
+              <div class="security-bullet-point">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Google OAuth 2.0 authentication</span>
+              </div>
+            </div>
+
+            <!-- DIVIDER 2 -->
+            <div class="auth-divider">
+              <span class="divider-line"></span>
+              <span class="divider-text">OR</span>
+              <span class="divider-line"></span>
+            </div>
+
+            <!-- OPTION 3: Delete by Email -->
+            <div class="auth-option-card" id="option-email-card">
+              <div class="option-badge">Option 3</div>
+              <h3 class="option-title">Delete by Email</h3>
+              <p class="option-desc">Enter the Gmail address you use with TubeMaster AI.</p>
+              
+              <div class="form-group" id="email-input-group">
+                <label for="input-gmail-address" class="input-label">Enter your TubeMaster AI Gmail address</label>
+                <input 
+                  type="email" 
+                  id="input-gmail-address" 
+                  class="text-input" 
+                  placeholder="creator@gmail.com" 
+                  autocomplete="email"
+                  required 
+                />
+                <button type="button" id="btn-submit-gmail" class="btn-submit btn-compact" style="margin-top: 0.75rem;">
+                  <span class="btn-text">Find My Account</span>
+                  <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+              </div>
+
+              <!-- Option 3 Step B: Verification Code Entry -->
+              <div id="panel-email-code" class="code-verification-panel" style="display: none;">
+                <div class="code-header">
+                  <span class="code-badge">Step 2: Enter 6-Digit Code</span>
+                  <p id="code-sent-message" class="code-desc">A 6-digit verification code has been generated for your Gmail address. Enter it below (expires in 15 mins).</p>
+                </div>
+                
+                <div class="form-group">
+                  <label for="input-verification-code" class="input-label">6-Digit Verification Code</label>
+                  <input 
+                    type="text" 
+                    id="input-verification-code" 
+                    class="text-input code-input font-mono" 
+                    placeholder="123456" 
+                    maxlength="6" 
+                    inputmode="numeric" 
+                  />
+                  <div class="code-timer-row">
+                    <span id="code-timer-text">Expires in 15:00</span>
+                    <button type="button" id="btn-resend-code" class="link-btn">Resend Code</button>
+                  </div>
+                </div>
+
+                <button type="button" id="btn-verify-email-code" class="btn-submit btn-compact">
+                  <span class="btn-text">Verify Code & Proceed</span>
+                  <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+                <button type="button" id="btn-cancel-code" class="btn-secondary-link" style="margin-top: 0.5rem;">
+                  Change Email Address
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- STEP 4: Deletion Confirmation & Final Delete Button -->
-        <div id="view-step-4" class="flow-view" style="display: none;">
+        <!-- STEP 2: Deletion Confirmation Screen -->
+        <div id="view-step-2" class="flow-view" style="display: none;">
           <div class="card-header">
             <div class="header-icon-wrap danger-icon">
               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
@@ -205,8 +206,30 @@
               </svg>
             </div>
             <div>
-              <h2 class="card-title">Delete Your TubeMaster AI Account</h2>
-              <p class="card-desc">This action permanently deletes your TubeMaster AI account and associated personal data. This action cannot be undone.</p>
+              <h2 class="card-title">Confirm account to delete</h2>
+              <p class="card-desc">Review your verified TubeMaster AI account details and data removal breakdown before proceeding.</p>
+            </div>
+          </div>
+
+          <!-- Verified Account Card -->
+          <div class="account-profile-card">
+            <div class="account-avatar-wrap">
+              <img id="user-avatar-img" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80" alt="Creator Avatar" class="account-avatar" />
+              <div class="account-provider-badge">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#FF003D" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="account-details">
+              <div class="app-brand-mini">Detected TubeMaster AI Account</div>
+              <h3 id="user-display-name" class="account-name">TubeMaster Creator</h3>
+              <div id="user-display-email" class="account-email">creator@gmail.com</div>
+              <div class="account-status-pill">
+                <span class="status-dot"></span>
+                <span>Status: <strong>Verified</strong></span>
+              </div>
             </div>
           </div>
 
@@ -216,29 +239,25 @@
             <ul class="categories-list">
               <li>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Account & Profile:</strong> Display name, registered email address, and Google OAuth profile mappings.</span>
+                <span><strong>Profile & Authentication:</strong> Display name, registered email address, role, subscription tier, and Google OAuth credentials.</span>
               </li>
               <li>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Authentication & Sessions:</strong> Active login tokens, session identifiers, and credential hashes.</span>
+                <span><strong>AI Generation History:</strong> All generated YouTube, Instagram, and Facebook titles, descriptions, SEO tags, and script drafts.</span>
               </li>
               <li>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>AI Generation History:</strong> Generated video titles, SEO tags, descriptions, and script outlines.</span>
+                <span><strong>Saved Tool Vault Items:</strong> Saved creations, favorite outputs, and customized prompt templates.</span>
               </li>
               <li>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Saved Items:</strong> Tool vault creations and customized prompt templates.</span>
-              </li>
-              <li>
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>User Preferences:</strong> 24-hour quota trackers, custom tool options, and language preferences.</span>
+                <span><strong>Active Sessions & Quotas:</strong> Active login tokens, session identifiers, and 24-hour generation quota counters.</span>
               </li>
             </ul>
           </div>
 
           <div class="retention-notice">
-            <p><strong>Statutory Retention Disclosure:</strong> If payment transactions were processed, minimal billing reference records are retained solely for the statutory period mandated by tax and accounting laws. All user profile records, prompts, and saved items are purged immediately.</p>
+            <p><strong>Statutory Retention Disclosure:</strong> If payment transactions were processed, minimal financial reference IDs are retained solely for the statutory period mandated by applicable tax and financial accounting regulations. All creator profile records, prompt history, and draft creations are permanently purged immediately upon deletion.</p>
           </div>
 
           <!-- Deletion Confirmation Checkbox -->
@@ -247,24 +266,24 @@
               <input type="checkbox" id="delete-confirm-checkbox" class="form-checkbox" />
               <span class="checkbox-custom"></span>
               <span class="checkbox-text">
-                I understand that deleting my account may permanently remove my account and associated personal data.
+                I understand that this action permanently deletes my TubeMaster AI account and applicable associated data.
               </span>
             </label>
           </div>
 
           <div class="action-row">
             <button type="button" id="btn-final-delete" class="btn-danger" disabled>
-              <span class="btn-text">Delete Your TubeMaster AI Account</span>
+              <span class="btn-text">Delete This Account</span>
               <span class="btn-loader" aria-hidden="true"></span>
             </button>
             <button type="button" id="btn-cancel-delete" class="btn-secondary-link">
-              Cancel
+              Cancel & Return
             </button>
           </div>
         </div>
 
-        <!-- STEP 5: Success Screen -->
-        <div id="view-step-5" class="flow-view" style="display: none;">
+        <!-- STEP 3: Success Screen -->
+        <div id="view-step-3" class="flow-view" style="display: none;">
           <div class="card-header">
             <div class="header-icon-wrap success-icon">
               <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00E676" stroke-width="2">
@@ -273,8 +292,8 @@
               </svg>
             </div>
             <div>
-              <h2 class="card-title">Your TubeMaster AI account has been deleted</h2>
-              <p class="card-desc">Your account and applicable associated personal data have been permanently removed.</p>
+              <h2 class="card-title">Account Deleted</h2>
+              <p class="card-desc">Your TubeMaster AI account and applicable associated personal data have been deleted.</p>
             </div>
           </div>
 
@@ -289,11 +308,11 @@
             </div>
             <div class="success-row">
               <span class="success-label">Timestamp:</span>
-              <span id="success-timestamp" class="success-val">2026-08-19 10:30:00 UTC</span>
+              <span id="success-timestamp" class="success-val">2026-08-19 11:30:00 UTC</span>
             </div>
             <div class="success-row">
               <span class="success-label">Account:</span>
-              <span id="success-masked-email" class="success-val">c***r@example.com</span>
+              <span id="success-masked-email" class="success-val">b***n@gmail.com</span>
             </div>
           </div>
 
@@ -302,7 +321,11 @@
             <p>Your server-side account records, Google OAuth mappings, and cloud tokens have been permanently deleted. If you still have the TubeMaster AI mobile app on your phone, you may also clear local offline data in the app under <em>Profile &gt; Preferences & Data</em> or uninstall the app.</p>
           </div>
 
-          <div class="action-row">
+          <div class="support-notice-card">
+            <p>For questions: contact the TubeMaster AI support team at <a href="mailto:brixearn@gmail.com" style="color: var(--accent-red); font-weight: 700;">brixearn@gmail.com</a>.</p>
+          </div>
+
+          <div class="action-row" style="margin-top: 1.5rem;">
             <a href="/" class="btn-submit" style="text-decoration: none; text-align: center; justify-content: center;">
               Return to Homepage
             </a>
@@ -322,7 +345,7 @@
             <h3>Verified Identity</h3>
           </div>
           <p>
-            To prevent unauthorized account deletion, TubeMaster AI requires authenticating through the verified Google account linked to your creator profile.
+            To prevent unauthorized account deletion, TubeMaster AI requires authenticating through your verified Gmail address or linked Google identity.
           </p>
         </div>
 
@@ -332,7 +355,7 @@
             <h3>What data is deleted?</h3>
           </div>
           <p>
-            All personal records, display names, avatars, AI generation outputs, prompt history, and saved templates are permanently purged.
+            Personal profile records, display names, AI generation outputs, prompt history, and saved vault templates are permanently purged.
           </p>
         </div>
 
@@ -352,7 +375,7 @@
             <h3>Support Team</h3>
           </div>
           <p>
-            Have privacy questions? Reach our privacy team at <a href="mailto:hloob07@gmail.com" style="color: var(--accent-red);">hloob07@gmail.com</a>.
+            Have privacy or account-deletion questions? Contact the TubeMaster AI support team at <a href="mailto:brixearn@gmail.com" style="color: var(--accent-red);">brixearn@gmail.com</a>.
           </p>
         </div>
       </div>
@@ -369,7 +392,7 @@
       </div>
       <div class="footer-links">
         <a href="/privacy">Privacy Policy</a>
-        <a href="mailto:hloob07@gmail.com">Support</a>
+        <a href="mailto:brixearn@gmail.com">Support</a>
       </div>
     </div>
   </footer>
