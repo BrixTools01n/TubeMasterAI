@@ -105,7 +105,7 @@ const SESSION_TTL_MS = 60 * 60 * 1000; // 1 hour session lifetime
 const VERIFICATION_CODE_TTL_MS = 15 * 60 * 1000; // 15 minutes code expiry
 
 function maskEmail(email) {
-  if (!email || !email.includes('@')) return 'user@example.com';
+  if (!email || !email.includes('@')) return 'c***r@tubemaster.ai';
   const [user, domain] = email.split('@');
   const maskedUser = user.length > 2 ? `${user[0]}***${user[user.length - 1]}` : `${user[0]}*`;
   return `${maskedUser}@${domain}`;
