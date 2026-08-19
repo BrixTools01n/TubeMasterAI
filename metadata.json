@@ -1,0 +1,6 @@
+{
+  "name": "TubeMaster AI",
+  "description": "All-in-One AI creator toolkit with 100 tools for YouTube, Instagram, and Facebook.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

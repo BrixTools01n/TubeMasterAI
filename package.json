@@ -1,0 +1,14 @@
+{
+  "name": "tubemaster-ai-cloudrun",
+  "version": "1.0.0",
+  "description": "TubeMaster AI - Google Play Account Deletion Service & App Container",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node account-deletion-web/test.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "private": true
+}

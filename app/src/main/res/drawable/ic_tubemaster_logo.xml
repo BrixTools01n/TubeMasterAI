@@ -1,0 +1,42 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+  <!-- Dark Circular Base with Glow -->
+  <path
+      android:pathData="M100,100m-90,0a90,90 0,1 1,180 0a90,90 0,1 1,-180 0"
+      android:fillColor="#09090B"/>
+  
+  <!-- Outer Glow Stroke -->
+  <path
+      android:pathData="M100,100m-88,0a88,88 0,1 1,176 0a88,88 0,1 1,-176 0"
+      android:strokeWidth="3"
+      android:strokeColor="#FF003D"/>
+
+  <!-- TubeMaster Shield / Play Rounded Box -->
+  <path
+      android:pathData="M50,60 C50,48 58,40 70,40 L130,40 C142,40 150,48 150,60 L150,140 C150,152 142,160 130,160 L70,160 C58,160 50,152 50,140 Z"
+      android:fillColor="#FF003D"/>
+
+  <!-- Inner Dark Video Frame -->
+  <path
+      android:pathData="M56,64 C56,54 62,48 72,48 L128,48 C138,48 144,54 144,64 L144,136 C144,146 138,152 128,152 L72,152 C62,152 56,146 56,136 Z"
+      android:fillColor="#09090B"/>
+
+  <!-- Play Symbol / AI Spark Core -->
+  <path
+      android:pathData="M85,75 L125,100 L85,125 Z"
+      android:fillColor="#FF003D"/>
+
+  <!-- AI Pulse Star / Sparkle Top-Right -->
+  <path
+      android:pathData="M142,46 L145,54 L153,57 L145,60 L142,68 L139,60 L131,57 L139,54 Z"
+      android:fillColor="#FFFFFF"/>
+
+  <!-- AI Pulse Star / Sparkle Bottom-Left -->
+  <path
+      android:pathData="M56,138 L58,144 L64,146 L58,148 L56,154 L54,148 L48,146 L54,144 Z"
+      android:fillColor="#FFB800"/>
+</vector>
