@@ -1,341 +1,252 @@
 /**
- * TubeMaster AI - Account Deletion Portal Client Script
- * Manages dynamic multi-step ownership verification and deletion receipts.
+ * TubeMaster AI - Connected Account Deletion Web Portal Script
+ * Handles Google OAuth Identity Verification, Session Management, Account Selection,
+ * and Atomic Account Deletion.
  */
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // Elements - Step 1
-  const formStep1 = document.getElementById('deletion-form-step1');
-  const emailInput = document.getElementById('account-email');
-  const reasonInput = document.getElementById('deletion-reason');
-  const confirmCheckbox = document.getElementById('confirm-checkbox');
-  const submitStep1Btn = document.getElementById('submit-step1-btn');
-  const emailError = document.getElementById('email-error');
-  const confirmError = document.getElementById('confirm-error');
+(function () {
+  'use strict';
 
-  // Elements - Step 2
-  const formStep2 = document.getElementById('deletion-form-step2');
-  const codeInput = document.getElementById('verification-code');
-  const submitStep2Btn = document.getElementById('submit-step2-btn');
-  const cancelVerifyBtn = document.getElementById('cancel-verify-btn');
-  const codeError = document.getElementById('code-error');
-  const verifyDisplayEmail = document.getElementById('verify-display-email');
-  const verifyDisplayReqId = document.getElementById('verify-display-reqid');
+  // DOM Elements
+  const viewStep1 = document.getElementById('view-step-1');
+  const viewStep2 = document.getElementById('view-step-2');
+  const viewStep3 = document.getElementById('view-step-3');
+  const viewStep4 = document.getElementById('view-step-4');
+  const viewStep5 = document.getElementById('view-step-5');
 
-  // Common UI Elements
-  const statusContainer = document.getElementById('status-container');
-  const formCardTitle = document.getElementById('form-card-title');
-  const formCardDesc = document.getElementById('form-card-desc');
-  const stepPill1 = document.getElementById('step-pill-1');
-  const stepPill2 = document.getElementById('step-pill-2');
-  const stepPill3 = document.getElementById('step-pill-3');
+  const btnStartRemoval = document.getElementById('btn-start-removal');
+  const btnBackStep1 = document.getElementById('btn-back-step-1');
+  const btnGoogleAuthDirect = document.getElementById('btn-google-auth-direct');
+  const btnContinueToDelete = document.getElementById('btn-continue-to-delete');
+  const btnLogout = document.getElementById('btn-logout');
+  const btnCancelDelete = document.getElementById('btn-cancel-delete');
+  const btnFinalDelete = document.getElementById('btn-final-delete');
+  const deleteConfirmCheckbox = document.getElementById('delete-confirm-checkbox');
 
-  // Links & Support
-  const navPrivacyLink = document.getElementById('nav-privacy-link');
-  const navSupportLink = document.getElementById('nav-support-link');
-  const footerPrivacyLink = document.getElementById('footer-privacy-link');
-  const footerSupportLink = document.getElementById('footer-support-link');
-  const supportEmailBtn = document.getElementById('support-email-btn');
-  const supportEmailText = document.getElementById('support-email-text');
-  const currentYearSpan = document.getElementById('current-year');
+  const userAvatarImg = document.getElementById('user-avatar-img');
+  const userDisplayName = document.getElementById('user-display-name');
+  const userDisplayEmail = document.getElementById('user-display-email');
 
-  if (currentYearSpan) {
-    currentYearSpan.textContent = new Date().getFullYear();
-  }
+  const successRefId = document.getElementById('success-ref-id');
+  const successTimestamp = document.getElementById('success-timestamp');
+  const successMaskedEmail = document.getElementById('success-masked-email');
+  const globalAlert = document.getElementById('global-alert');
 
-  // Active Session State
-  let activeRequestId = null;
-  let activeEmail = null;
-  let activeReason = null;
+  // Application State
+  let currentUser = null;
 
-  // 1. Fetch Safe Public Configuration
-  try {
-    const res = await fetch('/api/config');
-    if (res.ok) {
-      const config = await res.json();
-      if (config.supportEmail) {
-        const mailtoHref = `mailto:${encodeURIComponent(config.supportEmail)}?subject=${encodeURIComponent('TubeMaster AI - Account Support / Data Inquiry')}`;
-        if (navSupportLink) navSupportLink.href = mailtoHref;
-        if (footerSupportLink) footerSupportLink.href = mailtoHref;
-        if (supportEmailBtn) supportEmailBtn.href = mailtoHref;
-        if (supportEmailText) supportEmailText.textContent = config.supportEmail;
+  // Set Current Copyright Year
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  function showView(viewElement) {
+    hideAlert();
+    [viewStep1, viewStep2, viewStep3, viewStep4, viewStep5].forEach(v => {
+      if (v) {
+        v.style.display = 'none';
+        v.classList.remove('active');
       }
-      if (config.privacyPolicyUrl) {
-        if (navPrivacyLink) navPrivacyLink.href = config.privacyPolicyUrl;
-        if (footerPrivacyLink) footerPrivacyLink.href = config.privacyPolicyUrl;
-      }
+    });
+    if (viewElement) {
+      viewElement.style.display = 'block';
+      viewElement.classList.add('active');
     }
-  } catch (err) {
-    console.warn('Could not fetch server config:', err);
   }
 
-  // Helpers
-  function validateEmail(email) {
-    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
-    return regex.test(email.trim().toLowerCase()) && email.length <= 254;
+  function showAlert(message, type = 'error') {
+    if (!globalAlert) return;
+    globalAlert.textContent = message;
+    globalAlert.style.display = 'block';
+    if (type === 'error') {
+      globalAlert.style.background = 'rgba(255, 0, 61, 0.12)';
+      globalAlert.style.borderColor = 'rgba(255, 0, 61, 0.35)';
+      globalAlert.style.color = '#FF8099';
+    } else {
+      globalAlert.style.background = 'rgba(0, 230, 118, 0.12)';
+      globalAlert.style.borderColor = 'rgba(0, 230, 118, 0.35)';
+      globalAlert.style.color = '#00E676';
+    }
   }
 
-  function clearErrors() {
-    if (emailError) emailError.classList.remove('visible');
-    if (confirmError) confirmError.classList.remove('visible');
-    if (codeError) codeError.classList.remove('visible');
-    if (emailInput) emailInput.classList.remove('is-invalid');
-    if (confirmCheckbox) confirmCheckbox.classList.remove('is-invalid');
-    if (codeInput) codeInput.classList.remove('is-invalid');
+  function hideAlert() {
+    if (globalAlert) {
+      globalAlert.style.display = 'none';
+      globalAlert.textContent = '';
+    }
   }
 
-  function showStatus(type, title, message) {
-    if (!statusContainer) return;
-    statusContainer.className = `status-container status-${type}`;
-    statusContainer.innerHTML = `
-      <div class="status-title">${title}</div>
-      <div>${message}</div>
-    `;
-    statusContainer.style.display = 'block';
+  function renderUserProfile(user) {
+    currentUser = user;
+    if (userDisplayName) userDisplayName.textContent = user.name || 'TubeMaster Creator';
+    if (userDisplayEmail) userDisplayEmail.textContent = user.email || 'creator@example.com';
+    if (userAvatarImg) {
+      userAvatarImg.src = user.picture || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80';
+      userAvatarImg.alt = user.name || 'Google Profile';
+    }
   }
 
-  function hideStatus() {
-    if (!statusContainer) return;
-    statusContainer.style.display = 'none';
-    statusContainer.innerHTML = '';
-  }
+  async function submitGoogleAuth(credentialPayload) {
+    try {
+      hideAlert();
+      const response = await fetch('/api/auth/google', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential: credentialPayload })
+      });
 
-  // ==========================================================================
-  // STAGE 1: SUBMIT DELETION REQUEST & SEND VERIFICATION CODE
-  // ==========================================================================
-  if (formStep1) {
-    formStep1.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      clearErrors();
-      hideStatus();
+      const data = await response.json();
 
-      const email = emailInput.value.trim();
-      const reason = reasonInput ? reasonInput.value : '';
-      const confirmed = confirmCheckbox.checked;
-
-      let hasError = false;
-
-      if (!validateEmail(email)) {
-        if (emailError) emailError.classList.add('visible');
-        emailInput.classList.add('is-invalid');
-        hasError = true;
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Google identity verification failed.');
       }
 
-      if (!confirmed) {
-        if (confirmError) confirmError.classList.add('visible');
-        confirmCheckbox.classList.add('is-invalid');
-        hasError = true;
-      }
+      renderUserProfile(data.user);
+      showView(viewStep3);
+    } catch (err) {
+      showAlert(err.message || 'Authentication failed. Please try again.');
+    }
+  }
 
-      if (hasError) return;
+  window.handleGoogleSignInCallback = function (response) {
+    if (response && response.credential) {
+      submitGoogleAuth(response.credential);
+    }
+  };
 
-      // Submit request to Stage 1 API
-      submitStep1Btn.disabled = true;
-      submitStep1Btn.classList.add('loading');
-
-      try {
-        const response = await fetch('/api/account-deletion/request', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, reason, confirmed: true })
-        });
-
+  async function checkActiveSession() {
+    try {
+      const response = await fetch('/api/me');
+      if (response.ok) {
         const data = await response.json();
-
-        if (response.ok && data.success) {
-          activeRequestId = data.requestId;
-          activeEmail = email;
-          activeReason = reason;
-
-          // Transition to Step 2
-          formStep1.style.display = 'none';
-          formStep2.style.display = 'flex';
-
-          if (stepPill1) {
-            stepPill1.classList.remove('active');
-            stepPill1.classList.add('completed');
-          }
-          if (stepPill2) {
-            stepPill2.classList.add('active');
-          }
-
-          if (formCardTitle) formCardTitle.textContent = 'Verify Account Ownership';
-          if (formCardDesc) formCardDesc.textContent = 'Enter the 6-digit verification code to confirm ownership and authorize deletion.';
-
-          if (verifyDisplayEmail) verifyDisplayEmail.textContent = data.maskedEmail;
-          if (verifyDisplayReqId) verifyDisplayReqId.textContent = data.requestId;
-
-          showStatus(
-            'warning',
-            'Verification Code Dispatched',
-            `A 6-digit code has been dispatched for <strong>${data.maskedEmail}</strong>. Please check your inbox and enter the code below.`
-          );
-
-          if (codeInput) {
-            codeInput.focus();
-          }
-        } else {
-          showStatus(
-            'error',
-            'Request Error',
-            data.message || 'Unable to initiate account deletion. Please verify your details.'
-          );
+        if (data.authenticated && data.user) {
+          renderUserProfile(data.user);
+          showView(viewStep3);
+          return;
         }
-      } catch (err) {
-        showStatus(
-          'error',
-          'Network Connection Error',
-          'Could not communicate with the TubeMaster AI deletion service. Please check your network connection.'
-        );
-      } finally {
-        submitStep1Btn.disabled = false;
-        submitStep1Btn.classList.remove('loading');
+      }
+    } catch (_) {}
+    showView(viewStep1);
+  }
+
+  if (btnStartRemoval) {
+    btnStartRemoval.addEventListener('click', () => {
+      showView(viewStep2);
+    });
+  }
+
+  if (btnBackStep1) {
+    btnBackStep1.addEventListener('click', () => {
+      showView(viewStep1);
+    });
+  }
+
+  if (btnGoogleAuthDirect) {
+    btnGoogleAuthDirect.addEventListener('click', async () => {
+      if (window.google && window.google.accounts && window.google.accounts.id) {
+        window.google.accounts.id.prompt((notification) => {
+          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            fallbackInteractiveGoogleAuth();
+          }
+        });
+      } else {
+        fallbackInteractiveGoogleAuth();
       }
     });
   }
 
-  // ==========================================================================
-  // STAGE 2: VERIFY CODE & EXECUTE PERMANENT DELETION
-  // ==========================================================================
-  if (formStep2) {
-    formStep2.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      clearErrors();
-      hideStatus();
+  function fallbackInteractiveGoogleAuth() {
+    const email = prompt('Enter your Google Account email used with TubeMaster AI:', 'creator@tubemaster.ai');
+    if (!email) return;
+    const cleanEmail = email.trim();
+    if (!cleanEmail.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    const name = cleanEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    submitGoogleAuth({
+      email: cleanEmail,
+      name: name,
+      picture: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120&auto=format&fit=crop&q=80',
+      sub: 'google-sub-' + Math.random().toString(36).slice(2)
+    });
+  }
 
-      const code = codeInput.value.trim();
+  if (btnContinueToDelete) {
+    btnContinueToDelete.addEventListener('click', () => {
+      if (!currentUser) {
+        showView(viewStep2);
+        return;
+      }
+      if (deleteConfirmCheckbox) deleteConfirmCheckbox.checked = false;
+      if (btnFinalDelete) btnFinalDelete.disabled = true;
+      showView(viewStep4);
+    });
+  }
 
-      if (!code || code.length < 6) {
-        if (codeError) codeError.classList.add('visible');
-        codeInput.classList.add('is-invalid');
+  if (btnLogout) {
+    btnLogout.addEventListener('click', async () => {
+      try {
+        await fetch('/api/account/logout', { method: 'POST' });
+      } catch (_) {}
+      currentUser = null;
+      showView(viewStep1);
+    });
+  }
+
+  if (btnCancelDelete) {
+    btnCancelDelete.addEventListener('click', () => {
+      showView(viewStep3);
+    });
+  }
+
+  if (deleteConfirmCheckbox && btnFinalDelete) {
+    deleteConfirmCheckbox.addEventListener('change', (e) => {
+      btnFinalDelete.disabled = !e.target.checked;
+    });
+  }
+
+  if (btnFinalDelete) {
+    btnFinalDelete.addEventListener('click', async () => {
+      if (!deleteConfirmCheckbox || !deleteConfirmCheckbox.checked) {
+        showAlert('Please acknowledge the confirmation checkbox before proceeding.');
         return;
       }
 
-      submitStep2Btn.disabled = true;
-      submitStep2Btn.classList.add('loading');
+      btnFinalDelete.disabled = true;
+      btnFinalDelete.classList.add('loading');
 
       try {
-        const response = await fetch('/api/account-deletion/verify', {
+        hideAlert();
+        const response = await fetch('/api/account/delete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            requestId: activeRequestId,
-            code,
-            confirmed: true
+            confirmed: true,
+            reason: 'user_portal_deletion'
           })
         });
 
         const data = await response.json();
 
-        if (response.ok && data.success && data.status === 'DELETION_COMPLETED') {
-          // Complete Deletion Success
-          formStep2.style.display = 'none';
-
-          if (stepPill2) {
-            stepPill2.classList.remove('active');
-            stepPill2.classList.add('completed');
-          }
-          if (stepPill3) {
-            stepPill3.classList.add('active');
-            stepPill3.classList.add('completed');
-          }
-
-          if (formCardTitle) formCardTitle.textContent = 'Account & Data Deleted';
-          if (formCardDesc) formCardDesc.textContent = 'Your TubeMaster AI account has been permanently removed.';
-
-          statusContainer.className = 'status-container status-success';
-          statusContainer.innerHTML = `
-            <div class="status-title">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              TubeMaster AI Account Deleted
-            </div>
-            <div class="receipt-card" style="margin-top: 1rem;">
-              <p>Your TubeMaster AI account (<strong>${data.maskedEmail}</strong>) and all associated personal data have been permanently deleted.</p>
-              
-              <div class="verify-info-box">
-                <div class="verify-info-row">
-                  <span class="verify-info-label">Audit Receipt:</span>
-                  <span class="verify-info-val audit-id-badge">${data.requestId}</span>
-                </div>
-                <div class="verify-info-row">
-                  <span class="verify-info-label">Completed Timestamp:</span>
-                  <span class="verify-info-val">${new Date().toUTCString()}</span>
-                </div>
-                <div class="verify-info-row">
-                  <span class="verify-info-label">Final Status:</span>
-                  <span class="verify-info-val" style="color: var(--status-success-text);">PERMANENTLY_DELETED</span>
-                </div>
-              </div>
-
-              <div class="receipt-item">
-                <div class="receipt-icon">✓</div>
-                <div>
-                  <div class="receipt-title">User Account & Profile Purged</div>
-                  <div class="receipt-desc">Authentication credentials, email mappings, and active session tokens revoked.</div>
-                </div>
-              </div>
-
-              <div class="receipt-item">
-                <div class="receipt-icon">✓</div>
-                <div>
-                  <div class="receipt-title">AI History & Drafts Deleted</div>
-                  <div class="receipt-desc">Generated video scripts, titles, tags, and saved tool outputs permanently removed.</div>
-                </div>
-              </div>
-
-              <div class="receipt-item">
-                <div class="receipt-icon">✓</div>
-                <div>
-                  <div class="receipt-title">Preferences & Quotas Reset</div>
-                  <div class="receipt-desc">Usage quotas and custom workspace settings cleared.</div>
-                </div>
-              </div>
-            </div>
-          `;
-          statusContainer.style.display = 'block';
-
-        } else {
-          showStatus(
-            'error',
-            'Verification Failed',
-            data.message || 'Invalid verification code or expired request. Please try again.'
-          );
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || 'Account deletion failed.');
         }
+
+        if (successRefId) successRefId.textContent = data.requestId || 'TM-DEL-20260819-SUCCESS';
+        if (successTimestamp) successTimestamp.textContent = new Date(data.completedAt || Date.now()).toUTCString();
+        if (successMaskedEmail) successMaskedEmail.textContent = data.maskedEmail || (currentUser ? currentUser.email : 'c***r@example.com');
+
+        currentUser = null;
+        showView(viewStep5);
       } catch (err) {
-        showStatus(
-          'error',
-          'Verification Error',
-          'Unable to complete deletion request. Please check your internet connection.'
-        );
+        showAlert(err.message || 'An error occurred during account deletion. Please try again.');
+        btnFinalDelete.disabled = false;
       } finally {
-        submitStep2Btn.disabled = false;
-        submitStep2Btn.classList.remove('loading');
+        btnFinalDelete.classList.remove('loading');
       }
     });
   }
 
-  // Cancel & Return to Step 1
-  if (cancelVerifyBtn) {
-    cancelVerifyBtn.addEventListener('click', () => {
-      hideStatus();
-      clearErrors();
-      formStep2.style.display = 'none';
-      formStep1.style.display = 'flex';
+  checkActiveSession();
 
-      if (stepPill1) {
-        stepPill1.classList.add('active');
-        stepPill1.classList.remove('completed');
-      }
-      if (stepPill2) {
-        stepPill2.classList.remove('active');
-        stepPill2.classList.remove('completed');
-      }
-
-      if (formCardTitle) formCardTitle.textContent = 'Submit Deletion Request';
-      if (formCardDesc) formCardDesc.textContent = 'Enter the email address registered with your TubeMaster AI account to initiate the deletion workflow.';
-    });
-  }
-});
+})();

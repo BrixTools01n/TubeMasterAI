@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Request the permanent deletion of your TubeMaster AI account and associated personal data. Official Google Play account deletion portal for TubeMaster AI.">
-  <title>Delete Your TubeMaster AI Account | Account Deletion Portal</title>
+  <meta name="description" content="User Data - Account Deletion. Remove your TubeMaster AI account and permanently purge associated account data.">
+  <title>User Data - Account Deletion | TubeMaster AI</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,23 +12,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
+  <!-- Google Identity Services for Google Sign-In -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
   <!-- Header / Navigation -->
   <header class="site-header">
     <div class="container header-container">
       <div class="brand">
-        <div class="brand-logo-badge">
-          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="24" height="24" rx="6" fill="#FF003D"/>
-            <polygon points="9.5,7.5 16.5,12 9.5,16.5" fill="#FFFFFF"/>
-          </svg>
-        </div>
-        <span class="brand-name">TubeMaster <span class="accent-text">AI</span></span>
+        <a href="/" class="brand-link">
+          <div class="brand-logo-badge">
+            <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="24" height="24" rx="6" fill="#FF003D"/>
+              <polygon points="9.5,7.5 16.5,12 9.5,16.5" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <span class="brand-name">TubeMaster <span class="accent-text">AI</span></span>
+        </a>
       </div>
       <nav class="header-nav">
         <a id="nav-privacy-link" href="/privacy" class="nav-link">Privacy Policy</a>
-        <a id="nav-support-link" href="#" class="nav-link">Support</a>
+        <a id="nav-support-link" href="mailto:hloob07@gmail.com" class="nav-link">Support</a>
       </nav>
     </div>
   </header>
@@ -37,226 +41,320 @@
   <main class="main-content">
     <div class="container">
       
-      <!-- Hero & Notice Banner -->
+      <!-- Top Title Header -->
       <section class="hero-section">
-        <div class="badge-tag">Official Account Portal</div>
-        <h1 class="main-title">Delete Your TubeMaster AI Account</h1>
+        <div class="badge-tag">Google Play Compliance</div>
+        <h1 class="main-title">User Data - Account Deletion</h1>
         <p class="subtitle">
-          This external portal allows registered <strong>TubeMaster AI</strong> users to verify account ownership and permanently delete their account and all associated data in accordance with Google Play developer policies.
+          Official account management and data removal portal for registered <strong>TubeMaster AI</strong> creators.
         </p>
       </section>
 
-      <!-- Account Deletion Workflow Card -->
-      <section class="form-card" id="deletion-section">
+      <!-- Account Deletion Flow Card -->
+      <section class="form-card" id="deletion-card">
         
-        <!-- Step Progress Bar -->
-        <div class="step-indicator-bar" id="step-bar">
-          <div class="step-pill active" id="step-pill-1">
-            <span>1</span> Request
-          </div>
-          <div class="step-pill" id="step-pill-2">
-            <span>2</span> Verify
-          </div>
-          <div class="step-pill" id="step-pill-3">
-            <span>3</span> Deleted
-          </div>
-        </div>
-
-        <div class="card-header">
-          <div class="header-icon-wrap" id="header-icon-wrap">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
-              <line x1="10" y1="11" x2="10" y2="17"/>
-              <line x1="14" y1="11" x2="14" y2="17"/>
-            </svg>
-          </div>
-          <div>
-            <h2 class="card-title" id="form-card-title">Submit Deletion Request</h2>
-            <p class="card-desc" id="form-card-desc">Enter the email address registered with your TubeMaster AI account to initiate the deletion workflow.</p>
-          </div>
-        </div>
-
-        <!-- STAGE 1: Request Deletion Form -->
-        <form id="deletion-form-step1" class="deletion-form" novalidate>
-          
-          <!-- Email Input -->
-          <div class="form-group">
-            <label for="account-email" class="form-label">Registered Account Email <span class="required">*</span></label>
-            <div class="input-wrapper">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
+        <!-- STEP 1: Main Landing / Remove Your Account Initiation -->
+        <div id="view-step-1" class="flow-view active">
+          <div class="card-header">
+            <div class="header-icon-wrap danger-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                <line x1="10" y1="11" x2="10" y2="17"/>
+                <line x1="14" y1="11" x2="14" y2="17"/>
               </svg>
-              <input 
-                type="email" 
-                id="account-email" 
-                name="email" 
-                class="form-input" 
-                placeholder="creator@example.com" 
-                required 
-                autocomplete="email"
-              />
             </div>
-            <span class="field-error" id="email-error">Please enter a valid email address.</span>
+            <div>
+              <h2 class="card-title">Remove Your Account</h2>
+              <p class="card-desc">You can permanently remove your TubeMaster AI account and associated account data.</p>
+            </div>
           </div>
 
-          <!-- Optional Deletion Scope / Reason -->
-          <div class="form-group">
-            <label for="deletion-reason" class="form-label">Reason for Deletion <span class="optional">(Optional)</span></label>
-            <select id="deletion-reason" name="reason" class="form-select">
-              <option value="" selected>Select a reason (optional)</option>
-              <option value="no_longer_needed">No longer using the app</option>
-              <option value="privacy_concerns">Privacy or data concerns</option>
-              <option value="switching_accounts">Switching to a different account</option>
-              <option value="technical_issues">Technical difficulties</option>
-              <option value="other">Other reason</option>
-            </select>
+          <div class="notice-info-box">
+            <div class="notice-item">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>This portal allows you to identify and permanently delete your authenticated TubeMaster AI creator account without requiring the mobile application to be open.</span>
+            </div>
           </div>
 
-          <!-- Confirmation Checkbox -->
+          <div class="action-row">
+            <button type="button" id="btn-start-removal" class="btn-submit">
+              <span class="btn-text">Remove Your Account</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Choose Your TubeMaster Account (Google Authentication) -->
+        <div id="view-step-2" class="flow-view" style="display: none;">
+          <div class="card-header">
+            <div class="header-icon-wrap">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div>
+              <h2 class="card-title">Choose your TubeMaster account</h2>
+              <p class="card-desc">Sign in with the Google account you use with TubeMaster AI.</p>
+            </div>
+          </div>
+
+          <div class="auth-box">
+            <p class="auth-helper-text">
+              To safeguard your account and ensure only the verified owner can authorize deletion, please authenticate with your Google account.
+            </p>
+
+            <!-- Google Sign-In Button Container -->
+            <div id="g_id_signin_container" class="gsi-container">
+              <div id="g_id_onload"
+                   data-client_id="tubemaster-ai-google-auth.apps.googleusercontent.com"
+                   data-context="signin"
+                   data-ux_mode="popup"
+                   data-callback="handleGoogleSignInCallback"
+                   data-auto_prompt="false">
+              </div>
+              <div class="g_id_signin"
+                   data-type="standard"
+                   data-shape="rectangular"
+                   data-theme="filled_blue"
+                   data-text="signin_with"
+                   data-size="large"
+                   data-logo_alignment="left">
+              </div>
+            </div>
+
+            <!-- Direct Google Auth Button / Account Chooser Fallback -->
+            <div class="auth-fallback-box">
+              <button type="button" id="btn-google-auth-direct" class="google-auth-btn">
+                <svg class="google-svg" viewBox="0 0 24 24" width="20" height="20">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Continue with Google Account</span>
+              </button>
+            </div>
+
+            <button type="button" id="btn-back-step-1" class="btn-secondary-link">
+              ← Back
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Show Selected TubeMaster Account (Single-Account Authenticated Card) -->
+        <div id="view-step-3" class="flow-view" style="display: none;">
+          <div class="card-header">
+            <div class="header-icon-wrap success-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <div>
+              <h2 class="card-title">Choose TubeMaster Account</h2>
+              <p class="card-desc">Authenticated account verified via Google Identity.</p>
+            </div>
+          </div>
+
+          <div class="account-profile-card">
+            <div class="account-avatar-wrap">
+              <img id="user-avatar-img" src="" alt="Google Profile" class="account-avatar" />
+              <div class="account-provider-badge">
+                <svg viewBox="0 0 24 24" width="12" height="12">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="account-details">
+              <div class="app-brand-mini">TubeMaster AI</div>
+              <h3 id="user-display-name" class="account-name">Creator</h3>
+              <div id="user-display-email" class="account-email">user@example.com</div>
+              <div class="account-status-pill">
+                <span class="status-dot"></span>
+                <span>Status: <strong>Signed in</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button type="button" id="btn-continue-to-delete" class="btn-submit">
+              <span class="btn-text">Continue to Account Deletion</span>
+            </button>
+            <button type="button" id="btn-logout" class="btn-secondary-link">
+              Sign Out & Choose Different Account
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Deletion Confirmation & Final Delete Button -->
+        <div id="view-step-4" class="flow-view" style="display: none;">
+          <div class="card-header">
+            <div class="header-icon-wrap danger-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <div>
+              <h2 class="card-title">Delete Your TubeMaster AI Account</h2>
+              <p class="card-desc">This action permanently deletes your TubeMaster AI account and associated personal data. This action cannot be undone.</p>
+            </div>
+          </div>
+
+          <!-- Account Data Categories Breakdown -->
+          <div class="data-categories-box">
+            <h4 class="categories-title">Account-Associated Data to be Permanently Deleted:</h4>
+            <ul class="categories-list">
+              <li>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Account & Profile:</strong> Display name, registered email address, and Google OAuth profile mappings.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Authentication & Sessions:</strong> Active login tokens, session identifiers, and credential hashes.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>AI Generation History:</strong> Generated video titles, SEO tags, descriptions, and script outlines.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Saved Items:</strong> Tool vault creations and customized prompt templates.</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>User Preferences:</strong> 24-hour quota trackers, custom tool options, and language preferences.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="retention-notice">
+            <p><strong>Statutory Retention Disclosure:</strong> If payment transactions were processed, minimal billing reference records are retained solely for the statutory period mandated by tax and accounting laws. All user profile records, prompts, and saved items are purged immediately.</p>
+          </div>
+
+          <!-- Deletion Confirmation Checkbox -->
           <div class="form-group checkbox-group">
-            <label class="checkbox-label" for="confirm-checkbox">
-              <input type="checkbox" id="confirm-checkbox" name="confirmed" class="form-checkbox" required />
+            <label class="checkbox-label" for="delete-confirm-checkbox">
+              <input type="checkbox" id="delete-confirm-checkbox" class="form-checkbox" />
               <span class="checkbox-custom"></span>
               <span class="checkbox-text">
-                I understand that account deletion permanently deletes my TubeMaster AI account and all associated data (profile, prompt history, saved tool outputs, and settings).
+                I understand that deleting my account may permanently remove my account and associated personal data.
               </span>
             </label>
-            <span class="field-error" id="confirm-error">You must confirm that you understand the deletion terms.</span>
           </div>
 
-          <!-- Submit Button -->
-          <button type="submit" id="submit-step1-btn" class="btn-submit">
-            <span class="btn-text">Send Ownership Verification Code</span>
-            <span class="btn-loader" aria-hidden="true"></span>
-          </button>
-        </form>
+          <div class="action-row">
+            <button type="button" id="btn-final-delete" class="btn-danger" disabled>
+              <span class="btn-text">Delete Your TubeMaster AI Account</span>
+              <span class="btn-loader" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="btn-cancel-delete" class="btn-secondary-link">
+              Cancel
+            </button>
+          </div>
+        </div>
 
-        <!-- STAGE 2: Verification Code Form -->
-        <form id="deletion-form-step2" class="deletion-form" style="display: none;" novalidate>
-          
-          <div class="verify-info-box">
-            <div class="verify-info-row">
-              <span class="verify-info-label">Account:</span>
-              <span class="verify-info-val" id="verify-display-email">c***r@example.com</span>
+        <!-- STEP 5: Success Screen -->
+        <div id="view-step-5" class="flow-view" style="display: none;">
+          <div class="card-header">
+            <div class="header-icon-wrap success-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#00E676" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
             </div>
-            <div class="verify-info-row">
-              <span class="verify-info-label">Audit Request ID:</span>
-              <span class="verify-info-val audit-id-badge" id="verify-display-reqid">TM-DEL-20260819-XXXXX</span>
-            </div>
-            <div class="verify-info-row">
-              <span class="verify-info-label">Status:</span>
-              <span class="verify-info-val" style="color: var(--status-warning-text);">VERIFICATION_REQUIRED</span>
+            <div>
+              <h2 class="card-title">Your TubeMaster AI account has been deleted</h2>
+              <p class="card-desc">Your account and applicable associated personal data have been permanently removed.</p>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="verification-code" class="form-label">Enter 6-Digit Verification Code <span class="required">*</span></label>
-            <input 
-              type="text" 
-              id="verification-code" 
-              name="code" 
-              class="form-input code-input" 
-              placeholder="123456" 
-              maxlength="6"
-              inputmode="numeric"
-              required 
-              autocomplete="one-time-code"
-            />
-            <span class="field-error" id="code-error">Please enter the 6-digit verification code.</span>
+          <div class="success-details-card">
+            <div class="success-row">
+              <span class="success-label">Status:</span>
+              <span class="success-val badge-success">PERMANENTLY_DELETED</span>
+            </div>
+            <div class="success-row">
+              <span class="success-label">Deletion Reference ID:</span>
+              <span id="success-ref-id" class="success-val font-mono">TM-DEL-20260819-XXXXXX</span>
+            </div>
+            <div class="success-row">
+              <span class="success-label">Timestamp:</span>
+              <span id="success-timestamp" class="success-val">2026-08-19 10:30:00 UTC</span>
+            </div>
+            <div class="success-row">
+              <span class="success-label">Account:</span>
+              <span id="success-masked-email" class="success-val">c***r@example.com</span>
+            </div>
           </div>
 
-          <button type="submit" id="submit-step2-btn" class="btn-submit">
-            <span class="btn-text">Verify & Permanently Delete Account</span>
-            <span class="btn-loader" aria-hidden="true"></span>
-          </button>
+          <div class="local-device-card">
+            <h4>Device Cache & Local App Data</h4>
+            <p>Your server-side account records, Google OAuth mappings, and cloud tokens have been permanently deleted. If you still have the TubeMaster AI mobile app on your phone, you may also clear local offline data in the app under <em>Profile &gt; Preferences & Data</em> or uninstall the app.</p>
+          </div>
 
-          <button type="button" id="cancel-verify-btn" class="support-btn" style="width: 100%; justify-content: center;">
-            Cancel and Back
-          </button>
-        </form>
+          <div class="action-row">
+            <a href="/" class="btn-submit" style="text-decoration: none; text-align: center; justify-content: center;">
+              Return to Homepage
+            </a>
+          </div>
+        </div>
 
-        <!-- Status / Alert Notifications & Receipts -->
-        <div id="status-container" class="status-container" style="display: none;"></div>
+        <!-- Alert Notification Box -->
+        <div id="global-alert" class="alert-box" style="display: none;"></div>
 
       </section>
 
-      <!-- Informational Policy Sections -->
+      <!-- Informational Policy Grid -->
       <div class="info-grid">
-        
-        <!-- Process Step Card -->
         <div class="info-card">
           <div class="info-card-header">
             <div class="step-num">1</div>
-            <h3>How the Deletion Process Works</h3>
+            <h3>Verified Identity</h3>
           </div>
           <p>
-            To prevent unauthorized account deletion, our system sends a short-lived, single-use 6-digit verification code to the registered email address.
+            To prevent unauthorized account deletion, TubeMaster AI requires authenticating through the verified Google account linked to your creator profile.
           </p>
-          <ul class="info-list">
-            <li><strong>Step 1:</strong> Enter your registered account email and reason.</li>
-            <li><strong>Step 2:</strong> Enter the verification code dispatched to your email.</li>
-            <li><strong>Step 3:</strong> Once verified, account data is permanently purged.</li>
-          </ul>
         </div>
 
-        <!-- What Data is Deleted -->
         <div class="info-card">
           <div class="info-card-header">
             <div class="step-num">2</div>
             <h3>What data is deleted?</h3>
           </div>
           <p>
-            When deletion is confirmed, all data associated with your TubeMaster AI account is permanently deleted:
+            All personal records, display names, avatars, AI generation outputs, prompt history, and saved templates are permanently purged.
           </p>
-          <ul class="info-list">
-            <li><strong>Account & Profile:</strong> Registered email address, display name, and avatar.</li>
-            <li><strong>Authentication Records:</strong> OAuth tokens, credential mappings, and login sessions.</li>
-            <li><strong>Generated Content:</strong> Saved titles, descriptions, tags, and script drafts.</li>
-            <li><strong>App History:</strong> Generation logs, quota tracking records, and user preferences.</li>
-            <li><strong>Other Personal Data:</strong> Any custom configurations saved to your user ID.</li>
-          </ul>
         </div>
 
-        <!-- Data Retention -->
         <div class="info-card">
           <div class="info-card-header">
             <div class="step-num">3</div>
-            <h3>Data retention</h3>
+            <h3>Data Retention Exceptions</h3>
           </div>
           <p>
-            Certain limited records may be retained temporarily where strictly required by law, security protocols, or financial reporting:
+            Where statutory accounting or tax laws require transaction preservation, minimal financial references are retained for the legally mandated period.
           </p>
-          <ul class="info-list">
-            <li><strong>Fraud Prevention & Abuse:</strong> Security logs to prevent repeat spam or platform abuse.</li>
-            <li><strong>Legal & Regulatory Compliance:</strong> Transaction references or billing history as required by applicable tax/accounting laws.</li>
-            <li><strong>Limited Scope:</strong> Retained data is strictly isolated, safeguarded, and purged automatically once retention obligations expire.</li>
-          </ul>
         </div>
 
-        <!-- Contact & Manual Support -->
         <div class="info-card">
           <div class="info-card-header">
             <div class="step-num">4</div>
-            <h3>TubeMaster AI Support</h3>
+            <h3>Support Team</h3>
           </div>
           <p>
-            Need assistance or have specific privacy inquiries regarding your personal data? You can reach our dedicated privacy and support team directly:
-          </p>
-          <div class="support-action-box">
-            <a id="support-email-btn" href="#" class="support-btn">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-              <span id="support-email-text">Contact Support</span>
-            </a>
-          </div>
-          <p class="support-subtext">
-            Requests submitted via email are verified and processed within 30 days.
+            Have privacy questions? Reach our privacy team at <a href="mailto:hloob07@gmail.com" style="color: var(--accent-red);">hloob07@gmail.com</a>.
           </p>
         </div>
-
       </div>
 
     </div>
@@ -270,8 +368,8 @@
         <p class="footer-sub">Google Play Data Safety & Account Deletion Compliant Portal.</p>
       </div>
       <div class="footer-links">
-        <a id="footer-privacy-link" href="/privacy">Privacy Policy</a>
-        <a id="footer-support-link" href="#">Support</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="mailto:hloob07@gmail.com">Support</a>
       </div>
     </div>
   </footer>

@@ -458,7 +458,9 @@ fun ProfileScreen(viewModel: MainViewModel) {
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFFFF5252)),
                         border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF5252).copy(alpha = 0.4f)),
                         shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag("remove_account_button")
                     ) {
                         Icon(
                             imageVector = Icons.Default.DeleteForever,
@@ -467,7 +469,7 @@ fun ProfileScreen(viewModel: MainViewModel) {
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Delete Account & Associated Data", fontSize = 13.sp, color = Color(0xFFFF5252), fontWeight = FontWeight.SemiBold)
+                        Text("Remove Your Account", fontSize = 13.sp, color = Color(0xFFFF5252), fontWeight = FontWeight.SemiBold)
                     }
                 }
             }
@@ -529,11 +531,11 @@ fun ProfileScreen(viewModel: MainViewModel) {
             containerColor = SurfaceDark,
             titleContentColor = Color(0xFFFF5252),
             textContentColor = TextMuted,
-            title = { Text("Delete TubeMaster AI Account?", fontWeight = FontWeight.Bold) },
+            title = { Text("Remove Your Account?", fontWeight = FontWeight.Bold) },
             text = {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(
-                        text = "This will permanently delete your account (${user?.email ?: "your account"}), all saved creations, AI generation history, and reset your app session.",
+                        text = "This will permanently delete your account (${user?.email ?: "your account"}), all saved creations, AI generation history, and reset your session.",
                         fontSize = 13.sp,
                         color = Color.White
                     )
@@ -542,6 +544,27 @@ fun ProfileScreen(viewModel: MainViewModel) {
                         fontSize = 12.sp,
                         color = TextMuted
                     )
+                    OutlinedButton(
+                        onClick = {
+                            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://tubemaster-account-deletion.a.run.app/"))
+                            try {
+                                context.startActivity(webIntent)
+                            } catch (_: Exception) {}
+                        },
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, SurfaceLighter),
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.OpenInBrowser,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("Open Web Deletion Portal", fontSize = 12.sp, color = Color.White)
+                    }
                 }
             },
             confirmButton = {
@@ -550,7 +573,8 @@ fun ProfileScreen(viewModel: MainViewModel) {
                         showDeleteAccountConfirm = false
                         viewModel.deleteCurrentAccount()
                     },
-                    colors = ButtonDefaults.buttonColors(containerColor = PrimaryRed)
+                    colors = ButtonDefaults.buttonColors(containerColor = PrimaryRed),
+                    modifier = Modifier.testTag("confirm_delete_account_button")
                 ) {
                     Text("Delete Account", color = Color.White, fontWeight = FontWeight.Bold)
                 }
